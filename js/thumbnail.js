@@ -1,4 +1,5 @@
 import {createPhotos} from './data.js';
+import {openBigPicture} from './big-picture.js';
 
 const COUNT = 25;
 const pictures = createPhotos(COUNT);
@@ -10,11 +11,14 @@ const pictureTemplate = document.querySelector('#picture')
 
 const photosFragment = document.createDocumentFragment();
 
-pictures.forEach(({url, likes, comments}) => {
+pictures.forEach((picture) => {
   const photoElement = pictureTemplate.cloneNode(true);
-  photoElement.querySelector('.picture__img').src = url;
-  photoElement.querySelector('.picture__comments').textContent = comments.length;
-  photoElement.querySelector('.picture__likes').textContent = likes;
+  photoElement.querySelector('.picture__img').src = picture.url;
+  photoElement.querySelector('.picture__comments').textContent = picture.comments.length.toString();
+  photoElement.querySelector('.picture__likes').textContent = picture.likes;
+  photoElement.addEventListener('click', () => {
+    openBigPicture(picture);
+  });
   photosFragment.appendChild(photoElement);
 });
 
