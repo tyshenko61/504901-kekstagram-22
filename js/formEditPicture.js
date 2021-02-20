@@ -8,7 +8,7 @@ const sliderElement = imgUpload.querySelector('.effect-level__slider');
 const effectValue = imgUpload.querySelector('.effect-level__value');
 
 sliderElement.style.cssText = 'display: none';
-noUiSlider.create(sliderElement, {
+window.noUiSlider.create(sliderElement, {
   range: {
     min: 0,
     max: 1,
