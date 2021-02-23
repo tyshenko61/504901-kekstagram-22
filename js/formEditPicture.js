@@ -1,3 +1,5 @@
+import {checkHashTags, checkComment} from './validation.js';
+
 const body = document.querySelector('body');
 const imgUpload = document.querySelector('.img-upload__overlay');
 const uploadFile = document.querySelector('#upload-file');
@@ -6,6 +8,12 @@ const scalePreview = imgUpload.querySelector('.img-upload__preview');
 const imagePreview = scalePreview.querySelector('img');
 const sliderElement = imgUpload.querySelector('.effect-level__slider');
 const effectValue = imgUpload.querySelector('.effect-level__value');
+const textHashtags = imgUpload.querySelector('.text__hashtags');
+const textComment = imgUpload.querySelector('.text__description');
+
+const MIN_SCALE_VALUE = 25;
+const MAX_SCALE_VALUE = 100;
+const STEP_SCALE_VALUE = 25;
 
 sliderElement.style.cssText = 'display: none';
 window.noUiSlider.create(sliderElement, {
@@ -36,7 +44,7 @@ imgUpload.querySelector('#upload-cancel').addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', (evt) => {
-  if (evt.key === ('Escape' || 'Esc')) {
+  if (evt.target.tagName !== 'INPUT' && evt.target.tagName !== 'TEXTAREA' &&  evt.key === ('Escape' || 'Esc')) {
     evt.preventDefault();
     closeFormEditPicture();
   }
@@ -53,16 +61,16 @@ const setScaleControlValue = (value) => {
 
 imgUpload.querySelector('.scale__control--smaller').addEventListener('click', () => {
   let value = getScaleControlValue();
-  if (value > 25) {
-    value -=25;
+  if (value > MIN_SCALE_VALUE) {
+    value -= STEP_SCALE_VALUE;
     setScaleControlValue(value);
   }
 });
 
 imgUpload.querySelector('.scale__control--bigger').addEventListener('click', () => {
   let value = getScaleControlValue();
-  if (value < 100) {
-    value = value + 25;
+  if (value < MAX_SCALE_VALUE) {
+    value += STEP_SCALE_VALUE;
     setScaleControlValue(value);
   }
 });
@@ -175,3 +183,10 @@ sliderElement.noUiSlider.on('update', (_, handle, unencoded) => {
   changeEffect(effectValue.value);
 });
 
+textHashtags.addEventListener('blur', () => {
+  textHashtags.setCustomValidity(checkHashTags(textHashtags.value));
+});
+
+textComment.addEventListener('blur', () => {
+  textComment.setCustomValidity(checkComment(textComment.value));
+});

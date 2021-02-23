@@ -30,8 +30,6 @@ const checkMaxLength = (string, maxLength) => {
   return string.length <= maxLength;
 };
 
-checkMaxLength('ПРОВЕРКА длины строки', 10);
-
 const shuffle = (count) => {
   const identifiers = Array.from({length: count}, (v, k) => k+1);
   for (let i = count - 1; i > 0; i--) {
@@ -45,4 +43,24 @@ const getRandomArrayElement = (elements) => {
   return elements[getRandomInt(0, elements.length - 1)];
 };
 
-export {getRandomInt, shuffle, getRandomArrayElement};
+const isValidWord = (string) => {
+  return /^\w+$/.test(string) && !(~string.indexOf('_'));
+}
+
+const isUnique = (hashTags) => {
+  const uniqueHashTags =[];
+  let unique = true;
+  hashTags.forEach((hashtag) => {
+    const hashtagLower = hashtag.toLowerCase();
+    if (uniqueHashTags.indexOf(hashtagLower) !== -1) {
+      unique = false;
+    }
+    else {
+      uniqueHashTags.push(hashtagLower);
+    }
+  });
+  return unique;
+}
+
+export {getRandomInt, shuffle, getRandomArrayElement, checkMaxLength, isValidWord, isUnique};
+
