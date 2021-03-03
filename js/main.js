@@ -8,4 +8,4 @@ getData((photos) => {
 }, () => showAlert('Что-то пошло не так'),
 );
 
-setUserFormSubmit(closeFormEditPicture);
+setUserFormSubmit(closeFormEditPicture, closeFormEditPicture);
