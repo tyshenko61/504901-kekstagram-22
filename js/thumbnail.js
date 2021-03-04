@@ -5,7 +5,12 @@ const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
+const clearPictures = () => {
+  document.querySelectorAll('.picture').forEach((item) => item.remove());
+}
+
 const renderThumbnails = (pictures) => {
+  clearPictures();
   const photosFragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     const photoElement = pictureTemplate.cloneNode(true);

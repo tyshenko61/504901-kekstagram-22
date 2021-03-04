@@ -23,7 +23,20 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-getRandomInt(0, 10);
+const getRandomArrayElement = (elements) => {
+  return elements[getRandomInt(0, elements.length - 1)];
+};
+
+const getRandomArray = (elements, count) => {
+  if (elements.length <= count) {
+    return elements;
+  }
+  const uniqueElements = new Set();
+  while (uniqueElements.size < count) {
+    uniqueElements.add(getRandomArrayElement(elements));
+  }
+  return Array.from(uniqueElements);
+}
 
 /**
  * checking the maximum string length
@@ -82,5 +95,14 @@ const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
 };
 
-export {checkMaxLength, isValidWord, isUnique, showAlert, isEscEvent, isEnterEvent};
+const debounce = (func, timeout) => {
+  let timerId;
+  return function () {
+    const callFunc = () => func.apply(this, arguments);
+    clearTimeout(timerId);
+    timerId = setTimeout(callFunc, timeout);
+  };
+};
+
+export {checkMaxLength, isValidWord, isUnique, showAlert, isEscEvent, isEnterEvent, debounce, getRandomArray};
 
