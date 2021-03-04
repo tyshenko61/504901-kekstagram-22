@@ -17,25 +17,22 @@ const FILTER_FUNCTIONS = [
 ];
 
 const sectionFilters = document.querySelector('.img-filters');
-const filterButtons = document.querySelectorAll('.img-filters__button');
 
 const setFilter = (photos, renderThumbnailsDebounced) => {
   sectionFilters.classList.remove('img-filters--inactive');
-  filterButtons.forEach((item) => {
-    item.addEventListener('click', () => {
-      if (!item.classList.contains('img-filters__button--active')) {
-        const activeButton = sectionFilters.querySelector('.img-filters__button--active');
-        if (activeButton) {
-          activeButton.classList.remove('img-filters__button--active');
-          item.classList.add('img-filters__button--active');
-        }
+  document.querySelector('.img-filters__form').addEventListener('click', (evt) => {
+    if (!evt.target.classList.contains('img-filters__button--active')) {
+      const activeButton = sectionFilters.querySelector('.img-filters__button--active');
+      if (activeButton) {
+        activeButton.classList.remove('img-filters__button--active');
+        evt.target.classList.add('img-filters__button--active');
       }
-      FILTER_FUNCTIONS.filter((element) => element.id === item.id)
-        .map((item) => {
-          const newPhotos = item.filterFunction(photos);
-          renderThumbnailsDebounced(newPhotos);
-        });
-    });
+    }
+    FILTER_FUNCTIONS.filter((element) => element.id === evt.target.id)
+      .map((item) => {
+        const newPhotos = item.filterFunction(photos);
+        renderThumbnailsDebounced(newPhotos);
+      });
   });
 };
 

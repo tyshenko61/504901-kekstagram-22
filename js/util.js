@@ -23,22 +23,19 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-getRandomInt(0, 10);
+const getRandomArrayElement = (elements) => {
+  return elements[getRandomInt(0, elements.length - 1)];
+};
 
 const getRandomArray = (elements, count) => {
-  const newArray = [];
-  const indexes = [];
   if (elements.length <= count) {
     return elements;
   }
-  while (indexes.length < count) {
-    const index = getRandomInt(0, elements.length - 1);
-    if (indexes.indexOf(index) === -1) {
-      indexes.push(index);
-    }
+  const uniqueElements = new Set();
+  while (uniqueElements.size < count) {
+    uniqueElements.add(getRandomArrayElement(elements));
   }
-  indexes.forEach((item) => {newArray.push(elements[item]);});
-  return newArray;
+  return Array.from(uniqueElements);
 }
 
 /**
