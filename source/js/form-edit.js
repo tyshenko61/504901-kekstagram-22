@@ -1,6 +1,8 @@
 import {checkHashTags, checkComment} from './validation.js';
-import { isEscEvent, showAlert } from './util.js';
-import { sendData } from './api.js';
+import {isEscEvent, showAlert} from './util.js';
+import {sendData} from './api.js';
+import noUiSlider from 'nouislider';
+import 'nouislider/distribute/nouislider.css';
 
 const body = document.querySelector('body');
 const imgUpload = document.querySelector('.img-upload__overlay');
@@ -177,7 +179,7 @@ FILTER_EFFECTS.forEach(({ id, hasSlider, getStyle, options }) => {
     }
     effect.addEventListener('change', () => {
       if (!sliderElement.noUiSlider) {
-        window.noUiSlider.create(sliderElement, options);
+        noUiSlider.create(sliderElement, options);
       }
       resetEffect();
       effectLevel.classList.remove('hidden');
