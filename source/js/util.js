@@ -100,17 +100,5 @@ const debounce = (func, timeout) => {
   };
 };
 
-// const debounce = (cb, ms) => {
-//   let timeout;
-
-//   return (...args) => {
-//     const callCb = () => cb.apply(this, args);
-
-//     clearTimeout(timeout);
-
-//     timeout = setTimeout(callCb, ms);
-//   };
-// };
-
 export {checkMaxLength, isValidWord, isUnique, showAlert, isEscEvent, debounce, getRandomArray};
 
