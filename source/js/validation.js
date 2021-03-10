@@ -2,6 +2,7 @@ import {checkMaxLength, isValidWord, isUnique} from './util.js';
 
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_COMMENT_LENGTH = 140;
+const MAX_COUNT_HASHTAGS = 5;
 
 const isValidHashtag = (string) => {
   let error = '';
@@ -19,7 +20,7 @@ const checkHashTags = (string) => {
   let error = '';
   const errors = [];
   const hashTags = string.split(' ');
-  if (hashTags.length > 5) {
+  if (hashTags.length > MAX_COUNT_HASHTAGS) {
     errors.push('нельзя указать больше пяти хэш-тегов');
   }
   if (!isUnique(hashTags)) {
