@@ -93,12 +93,24 @@ const isEscEvent = (evt) => {
 
 const debounce = (func, timeout) => {
   let timerId;
-  return function () {
-    const callFunc = () => func.apply(this, arguments);
+  return (...args) => {
+    const callFunc = () => func.apply(this, args);
     clearTimeout(timerId);
     timerId = setTimeout(callFunc, timeout);
   };
 };
+
+// const debounce = (cb, ms) => {
+//   let timeout;
+
+//   return (...args) => {
+//     const callCb = () => cb.apply(this, args);
+
+//     clearTimeout(timeout);
+
+//     timeout = setTimeout(callCb, ms);
+//   };
+// };
 
 export {checkMaxLength, isValidWord, isUnique, showAlert, isEscEvent, debounce, getRandomArray};
 
